@@ -326,8 +326,8 @@ h2 {
   letter-spacing: 0.05em;
 }
 
-/* PROJECTS */
-#projets {
+/* PROJECTS & VEILLE */
+#projets, #veille {
   padding: 120px 100px;
 }
 
@@ -686,7 +686,7 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 16px 24px; }
   .nav-links { display: none; }
-  #hero, #competences, #projets, #experience, #formation, #contact { padding: 80px 24px; }
+  #hero, #competences, #projets, #veille, #experience, #formation, #contact { padding: 80px 24px; }
   footer { padding: 20px 24px; flex-direction: column; gap: 10px; }
   .hero-status { right: 24px; bottom: 30px; }
 }
