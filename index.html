@@ -10,50 +10,150 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="site-ambient" aria-hidden="true">
+  <div class="ambient-orb orb-a"></div>
+  <div class="ambient-orb orb-b"></div>
+  <div class="ambient-orb orb-c"></div>
+  <div class="ambient-grid"></div>
+  <div class="ambient-stars"></div>
+</div>
+<div id="introLoader" class="intro-loader" aria-label="Initialisation du portfolio">
+  <div class="loader-grid"></div>
+  <div class="loader-scanline"></div>
+  <div class="loader-orbit loader-orbit-a"></div>
+  <div class="loader-orbit loader-orbit-b"></div>
+  <div class="loader-visual" id="dragon3dScene" aria-hidden="true">
+    <div class="loader-ring loader-ring-a"></div>
+    <div class="loader-ring loader-ring-b"></div>
+    <div class="loader-ring loader-ring-c"></div>
+    <div class="dragon-flight-2d" aria-hidden="true">
+      <img src="dragon-body.png" alt="" class="dragon-layer dragon-body-layer">
+      <img src="wing-top.png" alt="" class="dragon-layer dragon-wing dragon-wing-top">
+      <img src="wing-mid.png" alt="" class="dragon-layer dragon-wing dragon-wing-mid">
+      <img src="wing-low.png" alt="" class="dragon-layer dragon-wing dragon-wing-low">
+    </div>
+    <img src="dragon-kali-fallback.png" alt="" class="loader-dragon loader-dragon-fallback">
+    <div class="loader-core"></div>
+    <div class="loader-sparks"></div>
+    <div class="loader-3d-badge"><span></span> KALI DRAGON · 3D FLIGHT</div>
+  </div>
+  <div class="loader-copy">
+    <span class="loader-kicker">BOOT SEQUENCE · 03</span>
+    <strong>R//JOECKLE<span>_IT</span></strong>
+    <small>NETWORK · SYSTEMS · SECURITY</small>
+  </div>
+  <div class="loader-readout">
+    <span id="loaderStatus">KALI FLIGHT CORE</span>
+    <span id="loaderPercent">00%</span>
+  </div>
+  <div class="loader-progress"><span id="loaderProgressBar"></span></div>
+  <button class="loader-skip" id="loaderSkip" type="button">PASSER <i class="fa-solid fa-forward-step"></i></button>
+</div>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
+  <a class="nav-logo" href="#hero" aria-label="Retour à l'accueil">R//JOECKLE<span>_IT</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
   <ul class="nav-links" style="margin-left: auto;">
-    <li><a href="#competences">Skills</a></li>
+    <li><a href="#apropos">Profil</a></li>
+    <li><a href="#competences">Compétences</a></li>
     <li><a href="#projets">Projets</a></li>
-    <li><a href="#veille">Veille</a></li>
     <li><a href="#experience">Expérience</a></li>
     <li><a href="#formation">Formation</a></li>
+    <li><a href="#veille">Veille</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><button class="recruiter-toggle" id="recruiterToggle" type="button" aria-pressed="false"><i class="fa-solid fa-briefcase"></i><span>Mode recruteur</span></button></li>
   </ul>
 </nav>
 
 <section id="hero">
   <div class="hero-line"></div>
   <div class="hero-content">
-    <div class="hero-tag">Disponible en alternance · BTS SIO SISR</div>
+    <div class="hero-tag"><span class="hero-tag-main">Alternant chez Veolia · BTS SIO SISR</span><span class="hero-tag-badge">DEPUIS SEPT. 2026</span></div>
     <h1>
       <span class="line-name">Romain<br>Joeckle</span>
       <span class="line-role">Technicien <span class="accent-word">IT</span></span>
     </h1>
     <p class="hero-desc">
-      Étudiant en BTS SIO option SISR, passionné par les réseaux, la cybersécurité et le développement. 
+      Étudiant en BTS SIO SISR et alternant chez Veolia depuis septembre 2026, passionné par les réseaux, les systèmes et la cybersécurité. 
       Je conçois, administre et sécurise des systèmes — et je crée du contenu digital en parallèle.
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="btn btn-primary">Me contacter <i class="fa-solid fa-arrow-right"></i></a>
       <a href="https://drive.google.com/uc?export=download&id=1Mi-eDph3MZE2xzmaVIxPqAngH2Q8OyJX" target="_blank" class="btn btn-outline"><i class="fa-regular fa-file-pdf"></i> Télécharger mon CV</a>
       <a href="#projets" class="btn btn-outline">Voir mes projets</a>
-      <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" class="btn btn-outline"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a href="https://ryokoo.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-solid fa-globe"></i> Mon site</a>
     </div>
+  </div>
+
+  <div class="hero-console" aria-label="Aperçu technique">
+    <div class="console-top"><span><i class="fa-solid fa-circle"></i> SYSTEM / ONLINE</span><span>RJ-01</span></div>
+    <div class="console-body">
+      <div class="console-line"><span class="dim">01</span><span>role</span><strong>IT / SISR</strong></div>
+      <div class="console-line"><span class="dim">02</span><span>focus</span><strong>NETWORKS</strong></div>
+      <div class="console-line"><span class="dim">03</span><span>security</span><strong>ENABLED</strong></div>
+      <div class="console-line"><span class="dim">04</span><span>status</span><strong class="online">ACTIVE</strong></div>
+    </div>
+    <div class="console-footer"><span>ping 12ms</span><span>uptime 99.9%</span></div>
+  </div>
+  <div class="hero-command-panel" aria-label="État du portfolio">
+    <div class="command-label"><span></span> LIVE PROFILE</div>
+    <div class="command-main">VEOLIA / SISR</div>
+    <div class="command-meta"><span>STAGE → ALTERNANCE</span><span>2026</span></div>
   </div>
   <div class="hero-status">
     <span class="status-dot"></span>
-    Région parisienne & Metz
+    ALTERNANCE ACTIVE · VEOLIA
+  </div>
+  <div class="hero-metrics" aria-label="Repères du profil">
+    <div><strong>01</strong><span>BTS SIO<br>SISR</span></div>
+    <div><strong>04</strong><span>Axes<br>techniques</span></div>
+    <div><strong>∞</strong><span>Curiosité<br>technique</span></div>
+  </div>
+</section>
+
+
+<section id="apropos" class="profile-section">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <div>
+      <h2>Profil</h2>
+      <p class="section-intro">Un profil orienté infrastructure, réseaux et systèmes, avec une vraie culture du projet.</p>
+    </div>
+  </div>
+  <div class="profile-grid">
+    <article class="profile-main reveal">
+      <div class="eyebrow"><i class="fa-solid fa-terminal"></i> IDENTITÉ TECHNIQUE</div>
+      <h3>Construire. Administrer. Sécuriser.</h3>
+      <p>Étudiant en BTS SIO option SISR, je développe mes compétences autour des réseaux, de l'administration système, de la cybersécurité et du développement web. J'aime comprendre une infrastructure dans son ensemble : du poste client jusqu'aux services, aux accès et à la supervision.</p>
+      <div class="profile-pills">
+        <span><i class="fa-solid fa-network-wired"></i> Réseaux</span>
+        <span><i class="fa-brands fa-linux"></i> Linux</span>
+        <span><i class="fa-solid fa-shield-halved"></i> Sécurité</span>
+        <span><i class="fa-solid fa-code"></i> Web</span>
+      </div>
+    </article>
+    <aside class="profile-side reveal">
+      <div class="profile-line"><span>POSITION</span><strong>Étudiant BTS SIO SISR</strong></div>
+      <div class="profile-line"><span>ENTREPRISE</span><strong>Veolia · Depuis septembre 2026</strong></div>
+      <div class="profile-line"><span>PARCOURS VEOLIA</span><strong>Stage de 5 semaines · 27 juillet → 28 août 2026</strong></div>
+      <div class="profile-line"><span>OBJECTIF</span><strong>Développer mon expertise SISR</strong></div>
+      <div class="profile-line"><span>APPROCHE</span><strong>Pratique · Curieux · Autonome</strong></div>
+      <div class="profile-line"><span>OUTILS</span><strong>Cisco · Linux · Windows Server</strong></div>
+    </aside>
   </div>
 </section>
 
 <section id="competences">
   <div class="section-header reveal">
-    <span class="section-num">01</span>
-    <h2>Compétences</h2>
+    <span class="section-num">02</span>
+    <div>
+      <h2>Compétences</h2>
+      <p class="section-intro">Un socle polyvalent pensé pour l'administration, le réseau et la sécurité des systèmes.</p>
+    </div>
   </div>
   <div class="skills-grid">
     <div class="skill-card reveal">
@@ -108,8 +208,11 @@
 
 <section id="projets">
   <div class="section-header reveal">
-    <span class="section-num">02</span>
-    <h2>Projets</h2>
+    <span class="section-num">03</span>
+    <div>
+      <h2>Projets</h2>
+      <p class="section-intro">Des projets concrets pour montrer ce que je sais mettre en place, documenter et présenter.</p>
+    </div>
   </div>
 
   <div class="projects-category reveal">
@@ -118,8 +221,9 @@
       <span class="category-line"></span>
     </div>
     <div class="projects-grid">
-      <div class="project-card reveal">
+      <div class="project-card reveal personal-project">
         <div class="project-inner">
+          <div class="project-cover cover-youtube"><i class="fa-brands fa-youtube"></i><span>CONTENT / PLATFORM</span></div>
           <div class="project-type">Auto-Entrepreneur · En cours</div>
           <div class="project-title">Ryokoo — Créateur de Contenus</div>
           <p class="project-desc">Chaîne YouTube avec gestion complète de la production : montage vidéo, optimisation SEO, gestion des miniatures et suivi des statistiques d'engagement. Site administré via Vercel/GitHub.</p>
@@ -127,18 +231,19 @@
             <span class="tech-chip">Vercel</span><span class="tech-chip">GitHub</span>
             <span class="tech-chip">CapCut / Filmora</span><span class="tech-chip">SEO</span><span class="tech-chip">Photoshop</span>
           </div>
-          <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" class="project-link">Voir la chaîne <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="project-link">Voir la chaîne <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
       <div class="project-card reveal">
         <div class="project-inner">
+          <div class="project-cover cover-web"><i class="fa-solid fa-globe"></i><span>WEB / DEPLOYMENT</span></div>
           <div class="project-type">Infrastructure Web</div>
-          <div class="project-title">Site d'Entreprise ryokoo-taxb</div>
+          <div class="project-title">Site web Ryokoo</div>
           <p class="project-desc">Conception et déploiement du site de l'auto-entreprise pour accroître la visibilité en ligne. Gestion complète du cycle : développement, déploiement, maintenance.</p>
           <div class="project-techs">
             <span class="tech-chip">Vercel</span><span class="tech-chip">GitHub</span><span class="tech-chip">Web Design</span>
           </div>
-          <a href="https://ryokoo-taxb.vercel.app" target="_blank" class="project-link">Voir le site <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://ryokoo.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">Voir le site <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -152,6 +257,7 @@
     <div class="projects-grid">
       <div class="project-card reveal">
         <div class="project-inner">
+          <div class="project-cover cover-embedded"><i class="fa-solid fa-microchip"></i><span>EMBEDDED / IOT</span></div>
           <div class="project-type">Système Embarqué</div>
           <div class="project-title">Distributeur Automatique de Nourriture</div>
           <p class="project-desc">Système IoT complet avec capteurs, moteur, RFID et communication Bluetooth. Inclut une application Android pour le pilotage à distance et une interface XML intuitive.</p>
@@ -165,6 +271,7 @@
       </div>
       <div class="project-card reveal">
         <div class="project-inner">
+          <div class="project-cover cover-code"><i class="fa-solid fa-code"></i><span>WEB / FULL STACK</span></div>
           <div class="project-type">Développement Web</div>
           <div class="project-title">Site Vitrine Responsive</div>
           <p class="project-desc">Site web complet avec arborescence structurée, formulaire de contact fonctionnel, design responsive mobile-first et intégration de visuels libres de droits.</p>
@@ -177,6 +284,7 @@
       </div>
       <div class="project-card reveal u5-card">
         <div class="project-inner">
+          <div class="project-cover cover-network"><i class="fa-solid fa-server"></i><span>SYSTEM / NETWORK</span></div>
           <div class="project-type">BTS SIO - U5</div>
           <div class="project-title">Administration Réseaux</div>
           <p class="project-desc">Série de TPs sur l'administration système : Linux, Active Directory, serveurs web, gestion de parc GLPI et déploiement en entreprise.</p>
@@ -191,10 +299,106 @@
 </section>
 
 <!-- NOUVELLE SECTION VEILLE -->
+
+<section id="bts" class="bts-section">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <div>
+      <h2>BTS SIO SISR</h2>
+      <p class="section-intro">Mon axe principal : comprendre, configurer et sécuriser une infrastructure informatique.</p>
+    </div>
+  </div>
+  <div class="bts-layout">
+    <div class="bts-stack reveal">
+      <div class="stack-node active"><span>01</span><div><strong>Réseaux</strong><small>Adressage · Cisco · LAN · OSPF</small></div></div>
+      <div class="stack-line"></div>
+      <div class="stack-node"><span>02</span><div><strong>Systèmes</strong><small>Linux · Windows Server · VM</small></div></div>
+      <div class="stack-line"></div>
+      <div class="stack-node"><span>03</span><div><strong>Services</strong><small>DNS · Apache · GLPI · HAProxy</small></div></div>
+      <div class="stack-line"></div>
+      <div class="stack-node"><span>04</span><div><strong>Identité & sécurité</strong><small>Active Directory · GPO · ACL</small></div></div>
+    </div>
+    <div class="bts-panel reveal">
+      <div class="bts-panel-top"><span><i class="fa-solid fa-circle"></i> SISR / LAB</span><span>READY</span></div>
+      <div class="bts-terminal">
+        <div><span>$</span> ping infrastructure.local</div>
+        <div class="ok">→ 64 bytes · response 1.8 ms</div>
+        <div><span>$</span> systemctl status apache2</div>
+        <div class="ok">→ active (running)</div>
+        <div><span>$</span> whoami</div>
+        <div class="accent">→ admin@sisr-lab</div>
+      </div>
+      <div class="bts-tags"><span>U5</span><span>U6</span><span>U7</span><span>LAB</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <div><h2>Expérience</h2><p class="section-intro">Mes expériences montrent mon autonomie, ma curiosité et ma capacité à progresser dans un environnement professionnel.</p></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal timeline-current">
+      <div class="timeline-date">DEPUIS SEPTEMBRE 2026 · EN COURS</div>
+      <div class="timeline-title">Alternant — Veolia</div>
+      <div class="timeline-location">VEOLIA · ALTERNANCE BTS SIO SISR</div>
+      <p class="timeline-desc">Alternance en parallèle de mon BTS SIO SISR. Cette expérience me permet de développer mes compétences dans un environnement professionnel et de mettre en pratique les connaissances acquises en systèmes, réseaux et administration informatique.</p>
+      <span class="timeline-badge"><i class="fa-solid fa-circle-check"></i> Expérience actuelle</span>
+    </div>
+    <div class="timeline-item reveal timeline-completed">
+      <div class="timeline-date">27 JUILLET → 28 AOÛT 2026 · 5 SEMAINES</div>
+      <div class="timeline-title">Stage — Veolia</div>
+      <div class="timeline-location">VEOLIA · STAGE PROFESSIONNEL · 5 SEMAINES</div>
+      <p class="timeline-desc">Stage professionnel effectué chez Veolia du 27 juillet au 28 août 2026, avant le début de mon alternance. Cette première immersion m’a permis de découvrir l’environnement professionnel de l’entreprise.</p>
+      <span class="timeline-badge timeline-badge-muted"><i class="fa-solid fa-circle-check"></i> Expérience terminée</span>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">DEPUIS AVRIL 2025</div>
+      <div class="timeline-title">Créateur de Contenus Vidéo</div>
+      <div class="timeline-location">AUTO-ENTREPRENEUR · RÉGION PARISIENNE</div>
+      <p class="timeline-desc">Création et gestion d'une auto-entreprise dans le domaine du contenu numérique. Conception du site internet via Vercel/GitHub, production vidéo complète (Photoshop, CapCut, Filmora), optimisation SEO, gestion financière et développement d'une communauté engagée. Suivi des métriques : taux d'engagement, rétention, évolution des vues.</p>
+    </div>
+    <div class="timeline-item reveal timeline-completed">
+      <div class="timeline-date">DÉCEMBRE 2021 · TERMINÉ</div>
+      <div class="timeline-title">Stage de 3ème — Diagnostic Automobile</div>
+      <div class="timeline-location">VOLKSWAGEN · SEAT · AUDI — MARTIN LOSCH, ESCH-SUR-ALZETTE, LUXEMBOURG</div>
+      <p class="timeline-desc">Utilisation de logiciels de diagnostic et de détection de pannes automobiles dans un environnement professionnel international. Découverte des systèmes embarqués et outils de diagnostic numériques dans le secteur automobile.</p>
+      <span class="timeline-badge timeline-badge-muted"><i class="fa-solid fa-circle-check"></i> Expérience terminée</span>
+    </div>
+  </div>
+</section>
+
+<section id="formation">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <div><h2>Formation</h2><p class="section-intro">Une formation technologique qui construit progressivement mon profil d'administrateur systèmes et réseaux.</p></div>
+  </div>
+  <div class="formation-grid">
+    <div class="formation-card reveal">
+      <div class="formation-year">EN COURS · 2025–2027</div>
+      <div class="formation-title">BTS SIO option SISR en alternance</div>
+      <div class="formation-school">Campus Ynov France — Val d'Europe</div>
+      <p class="formation-copy">Étude, conception et exploitation des réseaux informatiques. Formation suivie en alternance depuis septembre 2026.</p>
+      <span class="formation-badge">Alternance active · Veolia</span>
+      <div class="formation-note"><i class="fa-solid fa-briefcase"></i> Stage préalable chez Veolia · 27 juillet → 28 août 2026</div>
+    </div>
+    <div class="formation-card reveal">
+      <div class="formation-year">2022–2025</div>
+      <div class="formation-title">Baccalauréat STI2D option SIN</div>
+      <div class="formation-school">Lycée Jules Ferry — Coulommiers, France</div>
+      <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom: 20px;">Spécialité Systèmes d'Information et Numérique. Baccalauréat obtenu en 2025.</p>
+      <span class="formation-badge">Diplôme obtenu <i class="fa-solid fa-check"></i></span>
+    </div>
+  </div>
+</section>
+
 <section id="veille">
   <div class="section-header reveal">
-    <span class="section-num">03</span>
-    <h2>Veille Technologique</h2>
+    <span class="section-num">07</span>
+    <div><h2>Veille Technologique</h2><p class="section-intro">Une veille orientée cybersécurité et menaces pour rester connecté à l'actualité technique.</p></div>
   </div>
   
   <div class="projects-category reveal">
@@ -213,63 +417,36 @@
   </div>
 </section>
 
-<section id="experience">
-  <div class="section-header reveal">
-    <span class="section-num">04</span>
-    <h2>Expérience</h2>
-  </div>
-  <div class="timeline">
-    <div class="timeline-item reveal">
-      <div class="timeline-date">DEPUIS AVRIL 2025</div>
-      <div class="timeline-title">Créateur de Contenus Vidéo</div>
-      <div class="timeline-location">AUTO-ENTREPRENEUR · RÉGION PARISIENNE</div>
-      <p class="timeline-desc">Création et gestion d'une auto-entreprise dans le domaine du contenu numérique. Conception du site internet via Vercel/GitHub, production vidéo complète (Photoshop, CapCut, Filmora), optimisation SEO, gestion financière et développement d'une communauté engagée. Suivi des métriques : taux d'engagement, rétention, évolution des vues.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-date">DÉCEMBRE 2021</div>
-      <div class="timeline-title">Stage de 3ème — Diagnostic Automobile</div>
-      <div class="timeline-location">VOLKSWAGEN · SEAT · AUDI — MARTIN LOSCH, ESCH-SUR-ALZETTE, LUXEMBOURG</div>
-      <p class="timeline-desc">Utilisation de logiciels de diagnostic et de détection de pannes automobiles dans un environnement professionnel international. Découverte des systèmes embarqués et outils de diagnostic numériques dans le secteur automobile.</p>
-    </div>
-  </div>
-</section>
-
-<section id="formation">
-  <div class="section-header reveal">
-    <span class="section-num">05</span>
-    <h2>Formation</h2>
-  </div>
-  <div class="formation-grid">
-    <div class="formation-card reveal">
-      <div class="formation-year">EN COURS · 2025–2027</div>
-      <div class="formation-title">BTS SIO option SISR en alternance</div>
-      <div class="formation-school">Campus Ynov France — Val d'Europe</div>
-      <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom: 20px;">Étude, conception et exploitation des réseaux informatiques. Rythme : 2 jours entreprise / 3 jours cours.</p>
-      <span class="formation-badge">En recherche d'alternance</span>
-    </div>
-    <div class="formation-card reveal">
-      <div class="formation-year">2022–2025</div>
-      <div class="formation-title">Baccalauréat STI2D option SIN</div>
-      <div class="formation-school">Lycée Jules Ferry — Coulommiers, France</div>
-      <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom: 20px;">Spécialité Systèmes d'Information et Numérique. Baccalauréat obtenu en 2025.</p>
-      <span class="formation-badge">Diplôme obtenu <i class="fa-solid fa-check"></i></span>
-    </div>
-  </div>
-</section>
-
 <section id="contact">
-  <div class="contact-heading reveal">Travaillons<br>ensemble.</div>
-  <p class="contact-sub reveal">Je recherche une alternance BTS SIO SISR — Technicien IT / Admin réseaux</p>
-  <div class="contact-links reveal">
-    <a href="tel:0749647710" class="contact-item"><span><i class="fa-solid fa-mobile-screen"></i></span> 07 49 64 77 10</a>
-    <a href="mailto:joeckleromain598@gmail.com" class="contact-item"><span><i class="fa-solid fa-envelope"></i></span> joeckleromain598@gmail.com</a>
-    <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" class="contact-item"><span><i class="fa-brands fa-youtube"></i></span> YouTube — Ryokoo</a>
-    <a href="https://ryokoo-taxb.vercel.app" target="_blank" class="contact-item"><span><i class="fa-solid fa-globe"></i></span> ryokoo-taxb.vercel.app</a>
+  <div class="section-header reveal contact-section-head">
+    <span class="section-num">08</span>
+    <div><h2>Contact</h2><p class="section-intro">Une alternance, un projet ou simplement envie d'échanger ? Écris-moi directement.</p></div>
   </div>
-  <div class="langs reveal">
-    <span class="lang-badge">🇫🇷 Français — Natif</span>
-    <span class="lang-badge">🇬🇧 Anglais — B1</span>
-    <span class="lang-badge">🇩🇪 Allemand — B1</span>
+  <div class="contact-grid">
+    <div class="contact-copy reveal">
+      <div class="contact-heading">Travaillons<br><span>ensemble.</span></div>
+      <p class="contact-sub">Actuellement en alternance chez Veolia dans le cadre de mon BTS SIO SISR, après y avoir effectué un stage de 5 semaines du 27 juillet au 28 août 2026.</p>
+      <div class="contact-links compact">
+        <a href="tel:0749647710" class="contact-item"><span><i class="fa-solid fa-mobile-screen"></i></span> 07 49 64 77 10</a>
+        <a href="mailto:joeckleromain598@gmail.com" class="contact-item"><span><i class="fa-solid fa-envelope"></i></span> joeckleromain598@gmail.com</a>
+        <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="contact-item"><span><i class="fa-brands fa-youtube"></i></span> YouTube — Ryokoo</a>
+        <a href="https://ryokoo.vercel.app" target="_blank" rel="noopener noreferrer" class="contact-item"><span><i class="fa-solid fa-globe"></i></span> ryokoo.vercel.app</a>
+      </div>
+      <div class="langs">
+        <span class="lang-badge">🇫🇷 Français — Natif</span>
+        <span class="lang-badge">🇬🇧 Anglais — B1</span>
+        <span class="lang-badge">🇩🇪 Allemand — B1</span>
+      </div>
+    </div>
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-head"><span>MESSAGE</span><small>OUVERT AUX ENTREPRISES</small></div>
+      <label>Nom<input name="name" required autocomplete="name" placeholder="Votre nom"></label>
+      <label>Email<input type="email" name="email" required autocomplete="email" placeholder="vous@entreprise.fr"></label>
+      <label>Objet<select name="subject"><option>Échange professionnel</option><option>Projet / collaboration</option><option>Prise de contact</option></select></label>
+      <label>Message<textarea name="message" required rows="5" placeholder="Bonjour Romain, nous souhaitons échanger avec vous..."></textarea></label>
+      <button class="btn btn-primary form-submit" type="submit">Préparer l'email <i class="fa-solid fa-paper-plane"></i></button>
+      <p class="form-note">Le bouton ouvre votre messagerie avec le message prérempli.</p>
+    </form>
   </div>
 </section>
 
@@ -746,10 +923,12 @@
   </div>
 </div>
 
+<button class="back-top" id="backTop" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+
 <footer>
   <div style="display:flex; justify-content:space-between; width:100%;">
     <div>© 2026 Romain Joeckle</div>
-    <div>BTS SIO SISR · Portfolio</div>
+    <div>BTS SIO SISR · Portfolio <span class="footer-dot">●</span> Alternant chez Veolia depuis septembre 2026</div>
   </div>
 </footer>
 <script src="script.js"></script>
