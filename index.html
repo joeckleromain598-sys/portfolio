@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Romain Joeckle — Portfolio</title>
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -71,20 +75,20 @@
 <section id="hero">
   <div class="hero-line"></div>
   <div class="hero-content">
-    <div class="hero-tag"><span class="hero-tag-main">Alternant chez Veolia · BTS SIO SISR</span><span class="hero-tag-badge">DEPUIS SEPT. 2026</span></div>
+    <div class="hero-tag"><span class="hero-tag-main"><span class="veolia-brand"><img src="veolia-rvd-logo.png" alt="Veolia RVD" loading="eager"><span>VEOLIA RVD</span></span> · Alternance BTS SIO SISR</span><span class="hero-tag-badge">DEPUIS SEPT. 2026</span></div>
     <h1>
       <span class="line-name">Romain<br>Joeckle</span>
       <span class="line-role">Technicien <span class="accent-word">IT</span></span>
     </h1>
     <p class="hero-desc">
-      Étudiant en BTS SIO SISR et alternant chez Veolia depuis septembre 2026, passionné par les réseaux, les systèmes et la cybersécurité. 
+      Étudiant en BTS SIO SISR et alternant chez Veolia RVD depuis septembre 2026, passionné par les réseaux, les systèmes et la cybersécurité. 
       Je conçois, administre et sécurise des systèmes — et je crée du contenu digital en parallèle.
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="btn btn-primary">Me contacter <i class="fa-solid fa-arrow-right"></i></a>
       <a href="https://drive.google.com/uc?export=download&id=1Mi-eDph3MZE2xzmaVIxPqAngH2Q8OyJX" target="_blank" class="btn btn-outline"><i class="fa-regular fa-file-pdf"></i> Télécharger mon CV</a>
       <a href="#projets" class="btn btn-outline">Voir mes projets</a>
-      <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-brands fa-youtube"></i> YouTube</a>
+          <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-brands fa-youtube"></i> YouTube</a>
       <a href="https://ryokoo.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><i class="fa-solid fa-globe"></i> Mon site</a>
     </div>
   </div>
@@ -101,12 +105,12 @@
   </div>
   <div class="hero-command-panel" aria-label="État du portfolio">
     <div class="command-label"><span></span> LIVE PROFILE</div>
-    <div class="command-main">VEOLIA / SISR</div>
+    <div class="command-main"><span class="veolia-inline"><img src="veolia-rvd-logo.png" alt="Veolia RVD" loading="eager"><span>VEOLIA RVD</span></span> / SISR</div>
     <div class="command-meta"><span>STAGE → ALTERNANCE</span><span>2026</span></div>
   </div>
   <div class="hero-status">
     <span class="status-dot"></span>
-    ALTERNANCE ACTIVE · VEOLIA
+    ALTERNANCE ACTIVE · VEOLIA RVD
   </div>
   <div class="hero-metrics" aria-label="Repères du profil">
     <div><strong>01</strong><span>BTS SIO<br>SISR</span></div>
@@ -135,11 +139,12 @@
         <span><i class="fa-solid fa-shield-halved"></i> Sécurité</span>
         <span><i class="fa-solid fa-code"></i> Web</span>
       </div>
+      <button class="profile-detail-trigger" type="button" id="profileDetailTrigger">Voir le détail <i class="fa-solid fa-arrow-right"></i></button>
     </article>
     <aside class="profile-side reveal">
       <div class="profile-line"><span>POSITION</span><strong>Étudiant BTS SIO SISR</strong></div>
-      <div class="profile-line"><span>ENTREPRISE</span><strong>Veolia · Depuis septembre 2026</strong></div>
-      <div class="profile-line"><span>PARCOURS VEOLIA</span><strong>Stage de 5 semaines · 27 juillet → 28 août 2026</strong></div>
+      <div class="profile-line"><span>ENTREPRISE</span><strong><span class="veolia-inline"><img src="veolia-rvd-logo.png" alt="Veolia RVD">VEOLIA RVD</span> · Depuis septembre 2026</strong></div>
+      <div class="profile-line"><span>PARCOURS VEOLIA RVD</span><strong><span class="veolia-inline"><img src="veolia-rvd-logo.png" alt="Veolia RVD">Stage Veolia RVD</span> · 27 juillet → 28 août 2026 · 5 semaines</strong></div>
       <div class="profile-line"><span>OBJECTIF</span><strong>Développer mon expertise SISR</strong></div>
       <div class="profile-line"><span>APPROCHE</span><strong>Pratique · Curieux · Autonome</strong></div>
       <div class="profile-line"><span>OUTILS</span><strong>Cisco · Linux · Windows Server</strong></div>
@@ -156,55 +161,112 @@
     </div>
   </div>
   <div class="skills-grid">
-    <div class="skill-card reveal">
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="network">
       <span class="skill-icon"><i class="fa-solid fa-network-wired"></i></span>
-      <div class="skill-title">Réseaux & Systèmes</div>
-      <div class="skill-tags">
+      <span class="skill-title">Réseaux &amp; Systèmes</span>
+      <span class="skill-tags">
         <span class="tag">IP / DNS / DHCP</span><span class="tag">LAN</span><span class="tag">Cisco</span>
         <span class="tag">OSI / TCP-IP</span><span class="tag">Linux</span><span class="tag">VM</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="security">
       <span class="skill-icon"><i class="fa-solid fa-shield-halved"></i></span>
-      <div class="skill-title">Cybersécurité</div>
-      <div class="skill-tags">
+      <span class="skill-title">Cybersécurité</span>
+      <span class="skill-tags">
         <span class="tag">Cryptographie</span><span class="tag">Sécurité réseaux</span><span class="tag">Analyse de vulnérabilités</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="web">
       <span class="skill-icon"><i class="fa-solid fa-code"></i></span>
-      <div class="skill-title">Développement Web</div>
-      <div class="skill-tags">
+      <span class="skill-title">Développement Web</span>
+      <span class="skill-tags">
         <span class="tag">HTML / CSS</span><span class="tag">JavaScript</span><span class="tag">PHP</span>
         <span class="tag">SQL</span><span class="tag">Visual Studio</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="embedded">
       <span class="skill-icon"><i class="fa-solid fa-robot"></i></span>
-      <div class="skill-title">Systèmes Embarqués</div>
-      <div class="skill-tags">
+      <span class="skill-title">Systèmes Embarqués</span>
+      <span class="skill-tags">
         <span class="tag">Arduino</span><span class="tag">C / C++</span><span class="tag">Android Studio</span>
         <span class="tag">RFID</span><span class="tag">Bluetooth</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="content">
       <span class="skill-icon"><i class="fa-solid fa-photo-film"></i></span>
-      <div class="skill-title">Création de Contenus</div>
-      <div class="skill-tags">
+      <span class="skill-title">Création de Contenus</span>
+      <span class="skill-tags">
         <span class="tag">Photoshop</span><span class="tag">CapCut</span><span class="tag">Filmora</span>
         <span class="tag">SEO</span><span class="tag">Vercel / GitHub</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+    <button class="skill-card reveal skill-card-button" type="button" data-skill="soft">
       <span class="skill-icon"><i class="fa-solid fa-bolt"></i></span>
-      <div class="skill-title">Soft Skills</div>
-      <div class="skill-tags">
+      <span class="skill-title">Soft Skills</span>
+      <span class="skill-tags">
         <span class="tag">Autonome</span><span class="tag">Esprit d'équipe</span><span class="tag">Créatif</span>
         <span class="tag">Minutieux</span><span class="tag">Permis B</span>
-      </div>
-    </div>
+      </span>
+      <span class="skill-open">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+    </button>
   </div>
 </section>
+
+<!-- MODALE PROFIL -->
+<div id="profileModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+  <div class="modal-content project-detail-modal profile-detail-modal" role="document">
+    <button class="close-modal" id="profileModalClose" type="button" aria-label="Fermer">&times;</button>
+    <div class="tp-header"><div class="tp-badge">PROFIL</div><h2 id="profileModalTitle">Profil Romain Joeckle</h2></div>
+    <p class="skill-detail-intro">Étudiant en BTS SIO SISR et alternant chez Veolia RVD depuis septembre 2026, avec un parcours orienté réseaux, systèmes, cybersécurité et projets numériques.</p>
+    <div class="skill-detail-grid">
+      <div class="tp-section">
+        <h3><i class="fa-solid fa-id-card"></i> Mon parcours</h3>
+        <ul>
+          <li>BTS SIO option SISR en cours à Campus Ynov France — Val d'Europe.</li>
+          <li>Alternance chez Veolia RVD depuis septembre 2026.</li>
+          <li>Stage professionnel de 5 semaines chez Veolia RVD du 27 juillet au 28 août 2026.</li>
+          <li>Baccalauréat STI2D option SIN obtenu en 2025.</li>
+          <li>Stage de 3ème chez Martin Losch Luxembourg en décembre 2021.</li>
+        </ul>
+      </div>
+      <div class="tp-section">
+        <h3><i class="fa-solid fa-bullseye"></i> Axes techniques</h3>
+        <div class="tools-tags"><span class="tool-tag">Réseaux</span><span class="tool-tag">Systèmes</span><span class="tool-tag">Cybersécurité</span><span class="tool-tag">Linux</span><span class="tool-tag">Windows Server</span><span class="tool-tag">Cisco</span><span class="tool-tag">Web</span></div>
+      </div>
+    </div>
+    <div class="skill-detail-footer">Profil construit autour de la pratique, de la curiosité technique et d'une progression continue.</div>
+  </div>
+</div>
+
+<div id="skillModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="skillModalTitle">
+  <div class="modal-content skill-detail-modal" role="document">
+    <button class="close-modal skill-modal-close" id="skillModalClose" type="button" aria-label="Fermer">&times;</button>
+    <div class="skill-detail-head">
+      <div class="skill-detail-icon" id="skillModalIcon"></div>
+      <div>
+        <div class="project-type" id="skillModalKicker">COMPÉTENCE</div>
+        <h2 class="modal-title" id="skillModalTitle">Compétence</h2>
+      </div>
+    </div>
+    <p class="skill-detail-intro" id="skillModalIntro"></p>
+    <div class="skill-detail-grid">
+      <div class="tp-section">
+        <h3><i class="fa-solid fa-list-check"></i> Ce que je travaille</h3>
+        <ul id="skillModalPoints"></ul>
+      </div>
+      <div class="tp-section">
+        <h3><i class="fa-solid fa-screwdriver-wrench"></i> Technologies / outils</h3>
+        <div class="tools-tags" id="skillModalTools"></div>
+      </div>
+    </div>
+    <div class="skill-detail-footer" id="skillModalFooter"></div>
+  </div>
+</div>
 
 <section id="projets">
   <div class="section-header reveal">
@@ -221,7 +283,7 @@
       <span class="category-line"></span>
     </div>
     <div class="projects-grid">
-      <div class="project-card reveal personal-project">
+      <div class="project-card reveal personal-project project-card-button" data-project="ryokoo-content" tabindex="0" role="button" aria-label="Voir les détails du projet Ryokoo — Créateur de Contenus">
         <div class="project-inner">
           <div class="project-cover cover-youtube"><i class="fa-brands fa-youtube"></i><span>CONTENT / PLATFORM</span></div>
           <div class="project-type">Auto-Entrepreneur · En cours</div>
@@ -231,10 +293,11 @@
             <span class="tech-chip">Vercel</span><span class="tech-chip">GitHub</span>
             <span class="tech-chip">CapCut / Filmora</span><span class="tech-chip">SEO</span><span class="tech-chip">Photoshop</span>
           </div>
+          <div class="project-open-hint">Voir le détail <i class="fa-solid fa-arrow-right"></i></div>
           <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="project-link">Voir la chaîne <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card reveal project-card-button" data-project="ryokoo-site" tabindex="0" role="button" aria-label="Voir les détails du projet Site web Ryokoo">
         <div class="project-inner">
           <div class="project-cover cover-web"><i class="fa-solid fa-globe"></i><span>WEB / DEPLOYMENT</span></div>
           <div class="project-type">Infrastructure Web</div>
@@ -243,6 +306,7 @@
           <div class="project-techs">
             <span class="tech-chip">Vercel</span><span class="tech-chip">GitHub</span><span class="tech-chip">Web Design</span>
           </div>
+          <div class="project-open-hint">Voir le détail <i class="fa-solid fa-arrow-right"></i></div>
           <a href="https://ryokoo.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link">Voir le site <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
@@ -255,7 +319,7 @@
       <span class="category-line"></span>
     </div>
     <div class="projects-grid">
-      <div class="project-card reveal">
+      <div class="project-card reveal project-card-button" data-project="food-dispenser" tabindex="0" role="button" aria-label="Voir les détails du projet Distributeur Automatique de Nourriture">
         <div class="project-inner">
           <div class="project-cover cover-embedded"><i class="fa-solid fa-microchip"></i><span>EMBEDDED / IOT</span></div>
           <div class="project-type">Système Embarqué</div>
@@ -266,10 +330,10 @@
             <span class="tech-chip">Bluetooth</span><span class="tech-chip">RFID</span>
             <span class="tech-chip">SysML</span><span class="tech-chip">Réseau local</span>
           </div>
-          <a href="#" class="project-link" onclick="openDistribModal(event)">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="project-open-hint">Voir le détail <i class="fa-solid fa-arrow-right"></i></div>
         </div>
       </div>
-      <div class="project-card reveal">
+      <div class="project-card reveal project-card-button" data-project="site-vitrine" tabindex="0" role="button" aria-label="Voir les détails du projet Site Vitrine Responsive">
         <div class="project-inner">
           <div class="project-cover cover-code"><i class="fa-solid fa-code"></i><span>WEB / FULL STACK</span></div>
           <div class="project-type">Développement Web</div>
@@ -279,10 +343,10 @@
             <span class="tech-chip">HTML / CSS</span><span class="tech-chip">JavaScript</span>
             <span class="tech-chip">PHP</span><span class="tech-chip">SQL</span>
           </div>
-          <a href="#" class="project-link" onclick="openSiteModal(event)">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="project-open-hint">Voir le détail <i class="fa-solid fa-arrow-right"></i></div>
         </div>
       </div>
-      <div class="project-card reveal u5-card">
+      <div class="project-card reveal u5-card project-card-button" data-project="admin-network" tabindex="0" role="button" aria-label="Voir les détails du projet Administration Réseaux">
         <div class="project-inner">
           <div class="project-cover cover-network"><i class="fa-solid fa-server"></i><span>SYSTEM / NETWORK</span></div>
           <div class="project-type">BTS SIO - U5</div>
@@ -291,6 +355,7 @@
           <div class="project-techs">
             <span class="tech-chip">Linux</span><span class="tech-chip">Windows Server</span><span class="tech-chip">Administration</span>
           </div>
+          <div class="project-open-hint">Voir le détail <i class="fa-solid fa-arrow-right"></i></div>
           <a href="#" class="project-link" onclick="openU5Modal(event)">Voir les TPs <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
@@ -341,32 +406,36 @@
     <div><h2>Expérience</h2><p class="section-intro">Mes expériences montrent mon autonomie, ma curiosité et ma capacité à progresser dans un environnement professionnel.</p></div>
   </div>
   <div class="timeline">
-    <div class="timeline-item reveal timeline-current">
+    <div class="timeline-item reveal timeline-current experience-detail-card" tabindex="0" role="button" data-experience="veolia-current" aria-label="Voir le détail de l'alternance Veolia RVD">
       <div class="timeline-date">DEPUIS SEPTEMBRE 2026 · EN COURS</div>
-      <div class="timeline-title">Alternant — Veolia</div>
-      <div class="timeline-location">VEOLIA · ALTERNANCE BTS SIO SISR</div>
+      <div class="timeline-title"><span class="veolia-title"><img src="veolia-rvd-logo.png" alt="Veolia RVD">Alternant — Veolia RVD</span></div>
+      <div class="timeline-location">VEOLIA RVD · ALTERNANCE BTS SIO SISR</div>
       <p class="timeline-desc">Alternance en parallèle de mon BTS SIO SISR. Cette expérience me permet de développer mes compétences dans un environnement professionnel et de mettre en pratique les connaissances acquises en systèmes, réseaux et administration informatique.</p>
       <span class="timeline-badge"><i class="fa-solid fa-circle-check"></i> Expérience actuelle</span>
+      <span class="experience-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
     </div>
-    <div class="timeline-item reveal timeline-completed">
+    <div class="timeline-item reveal timeline-completed experience-detail-card" tabindex="0" role="button" data-experience="veolia-stage" aria-label="Voir le détail du stage Veolia RVD">
       <div class="timeline-date">27 JUILLET → 28 AOÛT 2026 · 5 SEMAINES</div>
-      <div class="timeline-title">Stage — Veolia</div>
-      <div class="timeline-location">VEOLIA · STAGE PROFESSIONNEL · 5 SEMAINES</div>
-      <p class="timeline-desc">Stage professionnel effectué chez Veolia du 27 juillet au 28 août 2026, avant le début de mon alternance. Cette première immersion m’a permis de découvrir l’environnement professionnel de l’entreprise.</p>
+      <div class="timeline-title"><span class="veolia-title"><img src="veolia-rvd-logo.png" alt="Veolia RVD">Stage — Veolia RVD</span></div>
+      <div class="timeline-location">VEOLIA RVD · STAGE PROFESSIONNEL · 5 SEMAINES</div>
+      <p class="timeline-desc">Stage professionnel effectué chez Veolia RVD du 27 juillet au 28 août 2026, avant le début de mon alternance. Cette première immersion m’a permis de découvrir l’environnement professionnel de l’entreprise.</p>
       <span class="timeline-badge timeline-badge-muted"><i class="fa-solid fa-circle-check"></i> Expérience terminée</span>
+      <span class="experience-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
     </div>
-    <div class="timeline-item reveal">
+    <div class="timeline-item reveal experience-detail-card" tabindex="0" role="button" data-experience="creator" aria-label="Voir le détail de l'expérience créateur de contenus">
       <div class="timeline-date">DEPUIS AVRIL 2025</div>
       <div class="timeline-title">Créateur de Contenus Vidéo</div>
       <div class="timeline-location">AUTO-ENTREPRENEUR · RÉGION PARISIENNE</div>
       <p class="timeline-desc">Création et gestion d'une auto-entreprise dans le domaine du contenu numérique. Conception du site internet via Vercel/GitHub, production vidéo complète (Photoshop, CapCut, Filmora), optimisation SEO, gestion financière et développement d'une communauté engagée. Suivi des métriques : taux d'engagement, rétention, évolution des vues.</p>
+      <span class="experience-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
     </div>
-    <div class="timeline-item reveal timeline-completed">
+    <div class="timeline-item reveal timeline-completed experience-detail-card" tabindex="0" role="button" data-experience="losch" aria-label="Voir le détail du stage de 3ème">
       <div class="timeline-date">DÉCEMBRE 2021 · TERMINÉ</div>
       <div class="timeline-title">Stage de 3ème — Diagnostic Automobile</div>
-      <div class="timeline-location">VOLKSWAGEN · SEAT · AUDI — MARTIN LOSCH, ESCH-SUR-ALZETTE, LUXEMBOURG</div>
+      <div class="timeline-location"><span class="losch-brand"><img src="martin-losch-logo.png" alt="Martin Losch Luxembourg" loading="lazy" decoding="async">VOLKSWAGEN · SEAT · AUDI — MARTIN LOSCH · ESCH-SUR-ALZETTE, LUXEMBOURG</span></div>
       <p class="timeline-desc">Utilisation de logiciels de diagnostic et de détection de pannes automobiles dans un environnement professionnel international. Découverte des systèmes embarqués et outils de diagnostic numériques dans le secteur automobile.</p>
       <span class="timeline-badge timeline-badge-muted"><i class="fa-solid fa-circle-check"></i> Expérience terminée</span>
+      <span class="experience-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
     </div>
   </div>
 </section>
@@ -377,20 +446,22 @@
     <div><h2>Formation</h2><p class="section-intro">Une formation technologique qui construit progressivement mon profil d'administrateur systèmes et réseaux.</p></div>
   </div>
   <div class="formation-grid">
-    <div class="formation-card reveal">
+    <div class="formation-card formation-detail-card reveal" tabindex="0" role="button" data-formation="bts-sio">
       <div class="formation-year">EN COURS · 2025–2027</div>
       <div class="formation-title">BTS SIO option SISR en alternance</div>
-      <div class="formation-school">Campus Ynov France — Val d'Europe</div>
+      <div class="formation-school ynov-school"><span class="ynov-brand"><img src="ynov-campus-logo.png" alt="Ynov Campus" loading="lazy" decoding="async"></span><span>Campus Ynov France — Val d'Europe</span></div>
       <p class="formation-copy">Étude, conception et exploitation des réseaux informatiques. Formation suivie en alternance depuis septembre 2026.</p>
-      <span class="formation-badge">Alternance active · Veolia</span>
-      <div class="formation-note"><i class="fa-solid fa-briefcase"></i> Stage préalable chez Veolia · 27 juillet → 28 août 2026</div>
+      <span class="formation-badge"><span class="veolia-inline"><img src="veolia-rvd-logo.png" alt="Veolia RVD">Alternance active · VEOLIA RVD</span></span>
+      <span class="formation-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
+      <div class="formation-note"><i class="fa-solid fa-briefcase"></i> Stage préalable chez <strong>Veolia RVD</strong> · 27 juillet → 28 août 2026</div>
     </div>
-    <div class="formation-card reveal">
+    <div class="formation-card formation-detail-card reveal" tabindex="0" role="button" data-formation="sti2d">
       <div class="formation-year">2022–2025</div>
       <div class="formation-title">Baccalauréat STI2D option SIN</div>
-      <div class="formation-school">Lycée Jules Ferry — Coulommiers, France</div>
+      <div class="formation-school institution-with-logo"><span class="institution-logo institution-logo--jules"><img src="lycee-jules-ferry-logo.png" alt="Logo Campus de Coulommiers — Lycée Jules Ferry"></span><span>Lycée Jules Ferry — Coulommiers, France</span></div>
       <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom: 20px;">Spécialité Systèmes d'Information et Numérique. Baccalauréat obtenu en 2025.</p>
       <span class="formation-badge">Diplôme obtenu <i class="fa-solid fa-check"></i></span>
+      <span class="formation-detail-link">Voir le détail <i class="fa-solid fa-arrow-right"></i></span>
     </div>
   </div>
 </section>
@@ -398,24 +469,52 @@
 <section id="veille">
   <div class="section-header reveal">
     <span class="section-num">07</span>
-    <div><h2>Veille Technologique</h2><p class="section-intro">Une veille orientée cybersécurité et menaces pour rester connecté à l'actualité technique.</p></div>
+    <div><h2>Veille Technologique</h2><p class="section-intro">Actualités récentes orientées cybersécurité, systèmes et réseaux, avec une lecture rapide des enjeux techniques.</p></div>
   </div>
-  
-  <div class="projects-category reveal">
-    <div class="category-header">
-      <h3>Cybersécurité & Réseaux (Auto-actualisé)</h3>
-      <span class="category-line"></span>
-    </div>
-    <!-- C'est ici que le JavaScript va injecter les articles RSS -->
-    <div class="projects-grid" id="veille-container">
-      <div class="project-card">
-        <div class="project-inner">
-          <div class="project-desc">Chargement des derniers articles en cours... <i class="fa-solid fa-spinner fa-spin"></i></div>
-        </div>
-      </div>
-    </div>
+  <div class="veille-meta reveal"><span><i class="fa-solid fa-rotate"></i> Mise à jour : 16 septembre 2026</span><a href="https://www.cert.ssi.gouv.fr/avis/" target="_blank" rel="noopener noreferrer">Voir tous les avis CERT-FR <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+  <div class="projects-grid veille-grid">
+    <article class="veille-card reveal">
+      <div class="veille-cover veille-cover--network"><span class="veille-cover-label">RÉSEAUX · CISCO</span><svg viewBox="0 0 180 90" aria-hidden="true"><rect x="42" y="26" width="96" height="40" rx="6"/><path d="M42 36H18m120 0h24M58 26V12m64 14V12M58 66v12m64-12v12"/><circle cx="58" cy="46" r="5"/><circle cx="90" cy="46" r="5"/><circle cx="122" cy="46" r="5"/><path d="M63 46h22m10 0h22"/></svg></div>
+      <div class="veille-body"><div class="project-type">15 SEPTEMBRE 2026 · CERT-FR</div><h3>Multiples vulnérabilités dans les produits Cisco</h3><p>Le CERT-FR signale plusieurs vulnérabilités pouvant notamment conduire à une exécution de code à distance, un déni de service ou une injection SQL. Cisco indique que la CVE-2026-76461 est activement exploitée.</p><div class="project-techs"><span class="tech-chip">Cisco</span><span class="tech-chip">CVE-2026-76461</span><span class="tech-chip">Réseaux</span></div><a class="project-link" href="https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-1175/" target="_blank" rel="noopener noreferrer">Lire l'avis <i class="fa-solid fa-arrow-right"></i></a></div>
+    </article>
+    <article class="veille-card reveal">
+      <div class="veille-cover veille-cover--windows"><span class="veille-cover-label">SYSTÈMES · WINDOWS</span><svg viewBox="0 0 180 90" aria-hidden="true"><rect x="28" y="18" width="54" height="22" rx="3"/><rect x="98" y="18" width="54" height="22" rx="3"/><rect x="28" y="50" width="54" height="22" rx="3"/><rect x="98" y="50" width="54" height="22" rx="3"/><path d="M82 29h16M82 61h16"/></svg></div>
+      <div class="veille-body"><div class="project-type">15 SEPTEMBRE 2026 · CERT-FR</div><h3>Vulnérabilité dans Microsoft Windows</h3><p>Le CERT-FR référence une vulnérabilité affectant Windows 11 26H1 et permettant une élévation de privilèges. Le correctif est à rechercher via le bulletin de sécurité Microsoft correspondant.</p><div class="project-techs"><span class="tech-chip">Windows 11</span><span class="tech-chip">CVE-2026-85921</span><span class="tech-chip">Systèmes</span></div><a class="project-link" href="https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-1174/" target="_blank" rel="noopener noreferrer">Lire l'avis <i class="fa-solid fa-arrow-right"></i></a></div>
+    </article>
+    <article class="veille-card reveal">
+      <div class="veille-cover veille-cover--apple"><span class="veille-cover-label">ENDPOINTS · APPLE</span><svg viewBox="0 0 180 90" aria-hidden="true"><rect x="56" y="14" width="32" height="62" rx="8"/><rect x="98" y="24" width="26" height="42" rx="6"/><circle cx="72" cy="68" r="2"/><path d="M132 20l12 10-12 10m10 18 12-10-12-10"/></svg></div>
+      <div class="veille-body"><div class="project-type">15 SEPTEMBRE 2026 · CERT-FR</div><h3>Multiples vulnérabilités dans les produits Apple</h3><p>Le CERT-FR recense des vulnérabilités touchant notamment iOS, iPadOS, macOS, Safari, tvOS, visionOS, watchOS et Xcode, avec plusieurs impacts possibles sur la sécurité.</p><div class="project-techs"><span class="tech-chip">Apple</span><span class="tech-chip">Endpoint</span><span class="tech-chip">Sécurité</span></div><a class="project-link" href="https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-1172/" target="_blank" rel="noopener noreferrer">Lire l'avis <i class="fa-solid fa-arrow-right"></i></a></div>
+    </article>
+    <article class="veille-card reveal">
+      <div class="veille-cover veille-cover--threat"><span class="veille-cover-label">THREAT INTELLIGENCE · MISP</span><svg viewBox="0 0 180 90" aria-hidden="true"><circle cx="90" cy="45" r="27"/><circle cx="90" cy="45" r="10"/><path d="M90 18v-10M90 72v10M63 45H50m80 0h-13M71 26 62 17m47 9 9-9m-38 52-9 9m47-9 9 9"/><path d="M72 45h36M90 27v36"/></svg></div>
+      <div class="veille-body"><div class="project-type">14 SEPTEMBRE 2026 · CERT-FR</div><h3>Multiples vulnérabilités dans MISP</h3><p>Le CERT-FR décrit plusieurs vulnérabilités affectant MISP, avec notamment des risques de déni de service, d'atteinte à la confidentialité et à l'intégrité des données.</p><div class="project-techs"><span class="tech-chip">MISP</span><span class="tech-chip">Threat Intel</span><span class="tech-chip">CVE</span></div><a class="project-link" href="https://cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-1170/" target="_blank" rel="noopener noreferrer">Lire l'avis <i class="fa-solid fa-arrow-right"></i></a></div>
+    </article>
   </div>
 </section>
+
+
+<!-- MODALE EXPÉRIENCES -->
+<div id="formationModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="formationModalTitle">
+  <div class="modal-content project-detail-modal formation-modal-content" role="document">
+    <button class="close-modal" id="formationModalClose" type="button" aria-label="Fermer">&times;</button>
+    <div class="tp-header"><div class="tp-badge" id="formationModalBadge">FORMATION</div><h2 id="formationModalTitle">Formation</h2></div>
+    <p class="skill-detail-intro" id="formationModalIntro"></p>
+    <div class="tp-section"><h3><i class="fa-solid fa-graduation-cap"></i> Parcours</h3><ul id="formationModalPoints"></ul></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-screwdriver-wrench"></i> Environnement / éléments clés</h3><div class="tools-tags" id="formationModalTools"></div></div>
+    <div class="skill-detail-footer" id="formationModalFooter"></div>
+  </div>
+</div>
+
+<div id="experienceModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="experienceModalTitle">
+  <div class="modal-content project-detail-modal experience-modal-content" role="document">
+    <button class="close-modal experience-modal-close" id="experienceModalClose" type="button" aria-label="Fermer">&times;</button>
+    <div class="tp-header"><div class="tp-badge" id="experienceModalBadge">Expérience</div><h2 id="experienceModalTitle">Expérience</h2></div>
+    <p class="skill-detail-intro" id="experienceModalIntro"></p>
+    <div class="tp-section"><h3><i class="fa-solid fa-list-check"></i> Détails</h3><ul id="experienceModalPoints"></ul></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-screwdriver-wrench"></i> Environnement / outils</h3><div class="tools-tags" id="experienceModalTools"></div></div>
+    <div class="skill-detail-footer" id="experienceModalFooter"></div>
+  </div>
+</div>
 
 <section id="contact">
   <div class="section-header reveal contact-section-head">
@@ -425,7 +524,7 @@
   <div class="contact-grid">
     <div class="contact-copy reveal">
       <div class="contact-heading">Travaillons<br><span>ensemble.</span></div>
-      <p class="contact-sub">Actuellement en alternance chez Veolia dans le cadre de mon BTS SIO SISR, après y avoir effectué un stage de 5 semaines du 27 juillet au 28 août 2026.</p>
+      <p class="contact-sub">Actuellement en alternance chez Veolia RVD dans le cadre de mon BTS SIO SISR, après y avoir effectué un stage de 5 semaines du 27 juillet au 28 août 2026.</p>
       <div class="contact-links compact">
         <a href="tel:0749647710" class="contact-item"><span><i class="fa-solid fa-mobile-screen"></i></span> 07 49 64 77 10</a>
         <a href="mailto:joeckleromain598@gmail.com" class="contact-item"><span><i class="fa-solid fa-envelope"></i></span> joeckleromain598@gmail.com</a>
@@ -449,6 +548,46 @@
     </form>
   </div>
 </section>
+
+<!-- MODALES PROJETS PERSONNELS -->
+<div id="projectRyokooContentModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectRyokooContentTitle">
+  <div class="modal-content project-detail-modal" role="document">
+    <button class="close-modal project-modal-close" type="button" data-close-project="projectRyokooContentModal" aria-label="Fermer">&times;</button>
+    <div class="tp-header"><div class="tp-badge">Projet</div><h2 id="projectRyokooContentTitle">Ryokoo — Créateur de Contenus</h2></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-list-check"></i> Ce que j'ai réalisé</h3><ul>
+      <li>Gestion et développement de la chaîne YouTube sous la marque Ryokoo.</li>
+      <li>Organisation de la production et du montage vidéo.</li>
+      <li>Création et optimisation des miniatures.</li>
+      <li>Travail sur le référencement et l'optimisation SEO des contenus.</li>
+      <li>Suivi des statistiques d'engagement et des performances des publications.</li>
+      <li>Administration et déploiement du site avec GitHub et Vercel.</li>
+    </ul></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-screwdriver-wrench"></i> Technologies / outils</h3><div class="tools-tags">
+      <span class="tool-tag">YouTube</span><span class="tool-tag">Photoshop</span><span class="tool-tag">CapCut</span><span class="tool-tag">Filmora</span><span class="tool-tag">SEO</span><span class="tool-tag">GitHub</span><span class="tool-tag">Vercel</span>
+    </div></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-bullseye"></i> Objectif du projet</h3><p class="timeline-desc">Combiner création de contenu, gestion technique du site et analyse des performances dans un projet personnel complet.</p></div>
+    <a href="https://www.youtube.com/@ryokoo_yt" target="_blank" rel="noopener noreferrer" class="download-btn"><i class="fa-brands fa-youtube"></i> Ouvrir la chaîne YouTube</a>
+  </div>
+</div>
+
+<div id="projectRyokooSiteModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectRyokooSiteTitle">
+  <div class="modal-content project-detail-modal" role="document">
+    <button class="close-modal project-modal-close" type="button" data-close-project="projectRyokooSiteModal" aria-label="Fermer">&times;</button>
+    <div class="tp-header"><div class="tp-badge">Projet</div><h2 id="projectRyokooSiteTitle">Site web Ryokoo</h2></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-list-check"></i> Ce que j'ai réalisé</h3><ul>
+      <li>Conception du site web de la marque Ryokoo.</li>
+      <li>Développement et mise en forme de l'interface.</li>
+      <li>Déploiement du site avec Vercel.</li>
+      <li>Gestion du code et des versions avec GitHub.</li>
+      <li>Maintenance et amélioration progressive du site.</li>
+    </ul></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-screwdriver-wrench"></i> Technologies / outils</h3><div class="tools-tags">
+      <span class="tool-tag">HTML</span><span class="tool-tag">CSS</span><span class="tool-tag">JavaScript</span><span class="tool-tag">GitHub</span><span class="tool-tag">Vercel</span><span class="tool-tag">Web Design</span>
+    </div></div>
+    <div class="tp-section"><h3><i class="fa-solid fa-server"></i> Déploiement</h3><p class="timeline-desc">Le projet est déployé sur <strong>ryokoo.vercel.app</strong> et fait partie des projets personnels présentés dans le portfolio.</p></div>
+    <a href="https://ryokoo.vercel.app" target="_blank" rel="noopener noreferrer" class="download-btn"><i class="fa-solid fa-globe"></i> Ouvrir le site</a>
+  </div>
+</div>
 
 <!-- MODAL U5 — Grille des TPs -->
 <div id="u5Modal" class="modal">
@@ -928,9 +1067,9 @@
 <footer>
   <div style="display:flex; justify-content:space-between; width:100%;">
     <div>© 2026 Romain Joeckle</div>
-    <div>BTS SIO SISR · Portfolio <span class="footer-dot">●</span> Alternant chez Veolia depuis septembre 2026</div>
+    <div>BTS SIO SISR · Portfolio <span class="footer-dot">●</span> Alternant chez Veolia RVD depuis septembre 2026</div>
   </div>
 </footer>
-<script src="script.js"></script>
+<script src="script.js?v=37"></script>
 </body>
 </html>

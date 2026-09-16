@@ -1,403 +1,385 @@
-// ── CUSTOM CURSOR ──────────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
+(() => {
+  'use strict';
 
-// Suivre la souris partout
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; 
-  my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-  animateRingTo(mx,my);
-});
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-let cursorFramePending = false;
-function updateRingPosition(){
-  cursorFramePending = false;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-}
-function animateRingTo(x,y){
-  rx = x; ry = y;
-  if(!cursorFramePending){
-    cursorFramePending = true;
-    requestAnimationFrame(updateRingPosition);
+  const body = document.body;
+  const cursor = $('#cursor');
+  const cursorRing = $('#cursorRing');
+
+  function setBodyLocked(locked) {
+    body.style.overflow = locked ? 'hidden' : '';
   }
-}
 
-// Agrandir le curseur sur tous les éléments cliquables
-function addCursorEffect() {
-  document.querySelectorAll('a, button, .tp-card, .close-modal, .download-btn, .project-link').forEach(el => {
-    // Supprimer les anciens listeners pour éviter les doublons
-    el.removeEventListener('mouseenter', enlargeCursor);
-    el.removeEventListener('mouseleave', shrinkCursor);
-    // Ajouter les nouveaux listeners
-    el.addEventListener('mouseenter', enlargeCursor);
-    el.addEventListener('mouseleave', shrinkCursor);
-  });
-}
-
-function enlargeCursor() {
-  cursor.style.width = '24px';
-  cursor.style.height = '24px';
-  ring.style.width = '60px';
-  ring.style.height = '60px';
-}
-
-function shrinkCursor() {
-  cursor.style.width = '12px';
-  cursor.style.height = '12px';
-  ring.style.width = '40px';
-  ring.style.height = '40px';
-}
-
-// ── SCROLL REVEAL ───────────────────────────────────────────────
-const reveals = document.querySelectorAll('.reveal');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 60);
-    }
-  });
-}, { threshold: 0.1 });
-
-reveals.forEach(el => observer.observe(el));
-
-// ── U5 MODALS ──────────────────────────────────────────────────
-function openU5Modal(event) {
-  event.preventDefault();
-  document.getElementById('u5Modal').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  setTimeout(addCursorEffect, 100);
-}
-
-function closeU5Modal() {
-  document.getElementById('u5Modal').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-function openTPModal(tpId) {
-  document.getElementById('u5Modal').style.display = 'none';
-  document.getElementById(tpId + 'Modal').style.display = 'block';
-  setTimeout(addCursorEffect, 100);
-}
-
-function closeTPModal(tpId) {
-  document.getElementById(tpId + 'Modal').style.display = 'none';
-  document.getElementById('u5Modal').style.display = 'block';
-  setTimeout(addCursorEffect, 100);
-}
-
-// ── PROJETS PÉDAGOGIQUES MODALS ────────────────────────────────
-function openDistribModal(event) {
-  event.preventDefault();
-  document.getElementById('distribModal').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  setTimeout(addCursorEffect, 100);
-}
-
-function closeDistribModal() {
-  document.getElementById('distribModal').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-function openSiteModal(event) {
-  event.preventDefault();
-  document.getElementById('siteModal').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  setTimeout(addCursorEffect, 100);
-}
-
-function closeSiteModal() {
-  document.getElementById('siteModal').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-// Fermer les modals en cliquant à l'extérieur
-window.onclick = function(event) {
-  if (event.target.classList.contains('modal')) {
-    event.target.style.display = 'none';
-    document.body.style.overflow = 'auto';
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    setBodyLocked(false);
   }
-}
 
-// ── VEILLE TECHNOLOGIQUE (RSS AUTO-UPDATE) ─────────────────────
-async function fetchVeille() {
-  const container = document.getElementById('veille-container');
-  if (!container) return;
+  function openModal(modal) {
+    if (!modal) return;
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    setBodyLocked(true);
+    const close = $('.close-modal, .project-modal-close', modal);
+    close?.focus();
+  }
 
-  // URL du flux RSS (Ici le CERT-FR pour la cybersécurité)
-  const rssUrl = encodeURIComponent('https://www.cert.ssi.gouv.fr/alerte/feed/');
-  // API publique pour convertir le RSS en JSON
-  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
-
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    
-    if (data.status === 'ok') {
-      let html = '';
-      // On récupère uniquement les 3 dernières alertes/articles
-      const articles = data.items.slice(0, 3);
-      
-      articles.forEach(item => {
-        // Formatage de la date en français
-        const date = new Date(item.pubDate).toLocaleDateString('fr-FR', {
-          day: '2-digit', month: 'long', year: 'numeric'
+  // ------------------------------------------------------------
+  // CUSTOM CURSOR — guarded so one missing element cannot break JS
+  // ------------------------------------------------------------
+  let rafCursor = 0;
+  if (cursor && cursorRing && matchMedia('(pointer:fine)').matches) {
+    document.addEventListener('mousemove', (event) => {
+      cursor.style.left = `${event.clientX}px`;
+      cursor.style.top = `${event.clientY}px`;
+      cursorRing.style.left = `${event.clientX}px`;
+      cursorRing.style.top = `${event.clientY}px`;
+      if (!rafCursor) {
+        rafCursor = requestAnimationFrame(() => {
+          rafCursor = 0;
         });
-
-        // Nettoyage de la description (retirer les balises HTML éventuelles)
-        const cleanDesc = item.description.replace(/(<([^>]+)>)/gi, "").substring(0, 120);
-
-        // Création de la carte en réutilisant tes classes CSS existantes
-        html += `
-          <div class="project-card reveal visible" style="opacity: 1; transform: translateY(0);">
-            <div class="project-inner">
-              <div class="project-type">${date} · CERT-FR</div>
-              <div class="project-title" style="font-size: 18px;">${item.title}</div>
-              <p class="project-desc">${cleanDesc}...</p>
-              <div class="project-techs">
-                <span class="tech-chip">Cybersécurité</span>
-                <span class="tech-chip">Alerte</span>
-              </div>
-              <a href="${item.link}" target="_blank" class="project-link">Lire l'alerte <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-          </div>
-        `;
-      });
-      
-      container.innerHTML = html;
-      
-      // On ré-applique ton effet de curseur sur les nouveaux boutons générés
-      addCursorEffect();
-    } else {
-      container.innerHTML = `<p class="project-desc">Impossible de charger le flux de veille.</p>`;
-    }
-  } catch (error) {
-    console.error('Erreur RSS:', error);
-    container.innerHTML = `<p class="project-desc">Erreur de connexion au flux d'actualités.</p>`;
-  }
-}
-
-// Appeler au chargement de la page : Curseur + Veille Technologique
-window.addEventListener('DOMContentLoaded', () => {
-  addCursorEffect();
-  fetchVeille();
-});
-
-/* ── V3 NAV / SCROLL UI ─────────────────────────────────────────── */
-(function(){
-  const nav = document.querySelector('nav');
-  const toggle = document.getElementById('navToggle');
-  const backTop = document.getElementById('backTop');
-  const links = [...document.querySelectorAll('.nav-links a')];
-  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-
-  if(toggle && nav){
-    toggle.addEventListener('click',()=>{
-      const open = nav.classList.toggle('menu-open');
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-    });
-    links.forEach(link=>link.addEventListener('click',()=>{
-      nav.classList.remove('menu-open');
-      toggle.setAttribute('aria-expanded','false');
-      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }));
-  }
-
-  const updateScrollUI = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
-    let bar = document.getElementById('scrollProgress');
-    if(!bar){
-      bar = document.createElement('div');
-      bar.id='scrollProgress';
-      bar.style.cssText='position:fixed;left:0;top:0;width:0;height:2px;background:linear-gradient(90deg,#65ffb8,#45a7ff);z-index:10001;pointer-events:none;transition:width .08s linear;';
-      document.body.appendChild(bar);
-    }
-    bar.style.width = progress + '%';
-    if(backTop) backTop.classList.toggle('visible', window.scrollY > 500);
-  };
-  window.addEventListener('scroll',updateScrollUI,{passive:true});
-  updateScrollUI();
-
-  if(backTop) backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const id = entry.target.id;
-        links.forEach(link=>link.classList.toggle('active', link.getAttribute('href') === '#'+id));
       }
-    });
-  },{rootMargin:'-35% 0px -55% 0px',threshold:0});
-  sections.forEach(section=>observer.observe(section));
-})();
+    }, { passive: true });
+  }
 
-/* ── PREMIUM INTERACTIONS ─────────────────────────────────────── */
-(function(){
-  const recruiterToggle = document.getElementById('recruiterToggle');
-  if(recruiterToggle){
-    recruiterToggle.addEventListener('click',()=>{
-      const active = document.body.classList.toggle('recruiter-mode');
-      recruiterToggle.setAttribute('aria-pressed', String(active));
-      recruiterToggle.querySelector('span').textContent = active ? 'Mode normal' : 'Mode recruteur';
-      window.dispatchEvent(new Event('scroll'));
+  function addCursorEffect() {
+    if (!cursor || !cursorRing) return;
+    $$("a, button, .tp-card, .close-modal, .download-btn, .project-link").forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '24px';
+        cursor.style.height = '24px';
+        cursorRing.style.width = '60px';
+        cursorRing.style.height = '60px';
+      }, { passive: true });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        cursorRing.style.width = '40px';
+        cursorRing.style.height = '40px';
+      }, { passive: true });
     });
   }
 
-  const form = document.getElementById('contactForm');
-  if(form){
-    form.addEventListener('submit',(event)=>{
+  // ------------------------------------------------------------
+  // REVEAL — starts safely after DOM is ready
+  // ------------------------------------------------------------
+  function initReveal() {
+    const items = $$('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(el => el.classList.add('visible'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    items.forEach(el => observer.observe(el));
+  }
+
+  // ------------------------------------------------------------
+  // MOBILE NAV + RECRUITER MODE + BACK TOP
+  // ------------------------------------------------------------
+  function initNavigation() {
+    const nav = $('nav');
+    const toggle = $('#navToggle');
+    toggle?.addEventListener('click', () => {
+      const open = nav?.classList.toggle('menu-open') ?? false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    $$('.nav-links a').forEach(link => link.addEventListener('click', () => {
+      nav?.classList.remove('menu-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }));
+
+    const recruiter = $('#recruiterToggle');
+    recruiter?.addEventListener('click', () => {
+      const active = !recruiter.classList.contains('is-active');
+      recruiter.classList.toggle('is-active', active);
+      recruiter.setAttribute('aria-pressed', String(active));
+      document.documentElement.classList.toggle('recruiter-mode', active);
+      const label = $('span', recruiter);
+      if (label) label.textContent = active ? 'Mode normal' : 'Mode recruteur';
+    });
+
+    const backTop = $('#backTop');
+    const updateBackTop = () => {
+      const show = window.scrollY > 700;
+      backTop?.classList.toggle('show', show);
+    };
+    window.addEventListener('scroll', updateBackTop, { passive: true });
+    backTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    updateBackTop();
+  }
+
+  // ------------------------------------------------------------
+  // INTRO — short and guaranteed to disappear
+  // ------------------------------------------------------------
+  function initIntro() {
+    const loader = $('#introLoader');
+    if (!loader) return;
+    const skip = $('#loaderSkip');
+    const percent = $('#loaderPercent');
+    const bar = $('#loaderProgressBar');
+    const status = $('#loaderStatus');
+    const duration = 2000;
+    let finished = false;
+    const states = ['INITIALISATION…','CHARGEMENT…','SYSTÈMES PRÊTS','ACCÈS AUTORISÉ'];
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      loader.classList.add('is-done');
+      window.setTimeout(() => loader.remove(), 420);
+    };
+    skip?.addEventListener('click', finish);
+
+    const start = performance.now();
+    const tick = (now) => {
+      if (finished) return;
+      const progress = Math.min(1, (now - start) / duration);
+      const pct = Math.round(progress * 100);
+      if (percent) percent.textContent = `${pct}%`;
+      if (bar) bar.style.width = `${pct}%`;
+      if (status) status.textContent = states[Math.min(states.length - 1, Math.floor(progress * states.length))];
+      if (progress < 1) requestAnimationFrame(tick);
+      else finish();
+    };
+    requestAnimationFrame(tick);
+  }
+
+  // ------------------------------------------------------------
+  // PROFILE
+  // ------------------------------------------------------------
+  function openProfileDetails() {
+    openModal($('#profileModal'));
+  }
+  window.openProfileDetails = openProfileDetails;
+
+  // ------------------------------------------------------------
+  // SKILLS
+  // ------------------------------------------------------------
+  const skillDetails = {
+    network: { icon:'<i class="fa-solid fa-network-wired"></i>', title:'Réseaux & Systèmes', intro:"Je développe mes bases d'administration réseau et système autour du modèle OSI/TCP-IP, des services réseau et des environnements Linux/virtualisés.", points:['Adressage IP, compréhension des réseaux LAN et des flux TCP/IP.','Configuration et compréhension des services DNS et DHCP.','Mise en œuvre et lecture d’architectures Cisco dans les TPs réseau.','Administration de base sous Linux et travail en environnement virtualisé.'], tools:['IP / DNS / DHCP','LAN','Cisco','OSI / TCP-IP','Linux','VM'], footer:'Cette compétence est directement liée à mon parcours BTS SIO SISR et à mes travaux pratiques réseau.' },
+    security: { icon:'<i class="fa-solid fa-shield-halved"></i>', title:'Cybersécurité', intro:'Je travaille les fondamentaux de la sécurité des systèmes et réseaux, avec une approche orientée protection, analyse et compréhension des risques.', points:['Compréhension des principes de cryptographie et de protection des échanges.','Sécurisation des accès et des réseaux dans les configurations étudiées.','Identification et analyse de vulnérabilités dans des scénarios pédagogiques.','Prise en compte des risques et des bonnes pratiques de sécurisation.'], tools:['Cryptographie','Sécurité réseaux','ACL','GPO','Analyse de vulnérabilités'], footer:'Mes TPs BTS SIO abordent notamment la sécurité réseau, les ACL et l’administration sécurisée.' },
+    web: { icon:'<i class="fa-solid fa-code"></i>', title:'Développement Web', intro:'Je réalise des sites web en combinant structure, mise en forme, interactions côté client et gestion de données.', points:['Création de pages structurées avec HTML et CSS responsive.','Ajout d’interactions et de fonctionnalités avec JavaScript.','Bases de développement PHP et de connexion à des bases SQL.','Déploiement et maintenance de projets web avec GitHub et Vercel.'], tools:['HTML / CSS','JavaScript','PHP','SQL','Visual Studio','GitHub / Vercel'], footer:'Mon portfolio lui-même est un projet concret de cette compétence.' },
+    embedded: { icon:'<i class="fa-solid fa-robot"></i>', title:'Systèmes Embarqués', intro:'Je conserve une base issue de mon parcours STI2D dans les systèmes embarqués et les objets connectés.', points:['Programmation et prototypage avec Arduino et C / C++.','Utilisation de capteurs, actionneurs et modules de communication.','Mise en œuvre de RFID et Bluetooth dans des projets connectés.','Création d’interfaces Android pour piloter ou accompagner un système.'], tools:['Arduino','C / C++','Android Studio','RFID','Bluetooth'], footer:'Cette compétence est notamment illustrée par mon projet de distributeur automatique de nourriture.' },
+    content: { icon:'<i class="fa-solid fa-photo-film"></i>', title:'Création de Contenus', intro:'En parallèle de l’informatique, je produis et diffuse du contenu numérique avec ma marque Ryokoo.', points:['Montage vidéo et préparation de formats pour YouTube et les réseaux.','Création et optimisation de miniatures et éléments graphiques.','Utilisation du SEO et analyse des performances des publications.','Gestion du site et du déploiement avec GitHub et Vercel.'], tools:['Photoshop','CapCut','Filmora','SEO','GitHub','Vercel'], footer:'Le projet Ryokoo me permet de combiner création, technique, organisation et suivi des performances.' },
+    soft: { icon:'<i class="fa-solid fa-bolt"></i>', title:'Soft Skills', intro:'Des qualités de travail utiles autant en entreprise que dans les projets scolaires et personnels.', points:['Autonomie dans la réalisation et la recherche de solutions.','Esprit d’équipe et capacité à travailler dans un cadre professionnel.','Créativité pour concevoir des projets et trouver des solutions.','Minutie dans la configuration, la documentation et la présentation.','Permis B.'], tools:['Autonomie','Esprit d’équipe','Créativité','Rigueur','Minutie','Permis B'], footer:'Ces qualités sont développées à travers mes études, mes projets personnels et mon expérience en entreprise.' }
+  };
+
+  function openSkillDetails(key) {
+    const item = skillDetails[key];
+    const modal = $('#skillModal');
+    if (!item || !modal) return;
+    $('#skillModalIcon').innerHTML = item.icon;
+    $('#skillModalTitle').textContent = item.title;
+    $('#skillModalKicker').textContent = 'COMPÉTENCE · DÉTAIL';
+    $('#skillModalIntro').textContent = item.intro;
+    $('#skillModalPoints').innerHTML = item.points.map(point => `<li>${point}</li>`).join('');
+    $('#skillModalTools').innerHTML = item.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('');
+    $('#skillModalFooter').textContent = item.footer;
+    openModal(modal);
+  }
+  window.openSkillDetails = openSkillDetails;
+  window.closeSkillDetails = () => closeModal($('#skillModal'));
+
+  // ------------------------------------------------------------
+  // EXPERIENCES
+  // ------------------------------------------------------------
+  const experienceDetails = {
+    'veolia-current': {title:'Alternant — Veolia RVD', badge:'EXPÉRIENCE ACTUELLE', intro:'Alternance débutée en septembre 2026 chez Veolia RVD, en parallèle du BTS SIO SISR.', points:['Mise en pratique des connaissances acquises en systèmes et réseaux dans un environnement professionnel.','Découverte des méthodes, outils et contraintes d’un service informatique en entreprise.','Progression sur l’administration, le support et les problématiques d’infrastructure selon les missions confiées.'], tools:['Veolia RVD','BTS SIO SISR','Systèmes','Réseaux','Administration'], footer:'Expérience actuellement en cours.'},
+    'veolia-stage': {title:'Stage — Veolia RVD', badge:'EXPÉRIENCE TERMINÉE', intro:'Stage professionnel de 5 semaines réalisé du 27 juillet au 28 août 2026 chez Veolia RVD, avant le début de mon alternance.', points:['Première immersion dans l’environnement professionnel de Veolia RVD.','Découverte du fonctionnement d’un service et de ses contraintes opérationnelles.','Transition directe vers l’alternance débutée en septembre 2026.'], tools:['Veolia RVD','5 semaines','27 juillet → 28 août 2026'], footer:'Stage terminé avant le début de mon alternance.'},
+    creator: {title:'Créateur de Contenus Vidéo', badge:'EXPÉRIENCE EN COURS', intro:'Depuis avril 2025, je développe mon activité de création de contenus autour de la marque Ryokoo.', points:['Création et gestion d’une chaîne YouTube et de contenus numériques.','Montage vidéo, miniatures, optimisation SEO et suivi des statistiques.','Administration et évolution du site avec GitHub et Vercel.','Gestion et développement d’une communauté autour des contenus.'], tools:['YouTube','Photoshop','CapCut','Filmora','SEO','GitHub','Vercel'], footer:'Cette expérience complète mon profil technique par une pratique régulière du numérique et de la gestion de projet.'},
+    losch: {title:'Stage de 3ème — Diagnostic Automobile', badge:'EXPÉRIENCE TERMINÉE', intro:'Stage de 3ème réalisé en décembre 2021 chez Martin Losch à Esch-sur-Alzette, au Luxembourg.', points:['Utilisation de logiciels de diagnostic automobile dans un environnement professionnel.','Découverte des outils numériques de recherche et de détection de pannes.','Observation des systèmes électroniques et embarqués du secteur automobile.','Première découverte des méthodes de travail en entreprise.'], tools:['Martin Losch Luxembourg','Volkswagen','SEAT','Audi','Diagnostic'], footer:'Première expérience professionnelle, terminée en décembre 2021.'}
+  };
+
+  function openExperienceDetails(key) {
+    const item = experienceDetails[key];
+    const modal = $('#experienceModal');
+    if (!item || !modal) return;
+    $('#experienceModalTitle').textContent = item.title;
+    $('#experienceModalBadge').textContent = item.badge;
+    $('#experienceModalIntro').textContent = item.intro;
+    $('#experienceModalPoints').innerHTML = item.points.map(point => `<li>${point}</li>`).join('');
+    $('#experienceModalTools').innerHTML = item.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('');
+    $('#experienceModalFooter').textContent = item.footer;
+    openModal(modal);
+  }
+  window.openExperienceDetails = openExperienceDetails;
+  window.closeExperienceDetails = () => closeModal($('#experienceModal'));
+
+  // ------------------------------------------------------------
+  // FORMATIONS
+  // ------------------------------------------------------------
+  const formationDetails = {
+    'bts-sio': {
+      title:'BTS SIO option SISR',
+      badge:'FORMATION · EN COURS',
+      intro:"Formation suivie à Campus Ynov France — Val d'Europe, dans le parcours SISR, en alternance depuis septembre 2026.",
+      points:[
+        'Étude, conception et exploitation des réseaux informatiques et des systèmes.',
+        'Travaux pratiques autour de Linux, Windows Server, Active Directory, DNS, Apache, GLPI et des environnements réseau.',
+        'Développement d’une approche orientée administration, infrastructure et cybersécurité.',
+        'Formation suivie en parallèle de mon alternance chez Veolia RVD.'
+      ],
+      tools:['BTS SIO SISR','Campus Ynov — Val d’Europe','Réseaux','Systèmes','Cybersécurité','Veolia RVD'],
+      footer:'Formation en cours sur la période 2025–2027.'
+    },
+    'sti2d': {
+      title:'Baccalauréat STI2D option SIN',
+      badge:'FORMATION · TERMINÉE',
+      intro:'Baccalauréat obtenu en 2025 au Lycée Jules Ferry — Coulommiers, dans la spécialité Systèmes d’Information et Numérique.',
+      points:[
+        'Formation orientée systèmes d’information et numérique.',
+        'Découverte des systèmes embarqués, de la programmation et des technologies numériques.',
+        'Projet et travail autour de la conception de systèmes techniques.',
+        'Cette formation constitue la base de mon parcours actuel en informatique et systèmes.'
+      ],
+      tools:['STI2D','SIN','Systèmes numériques','Programmation','Systèmes embarqués','Lycée Jules Ferry'],
+      footer:'Diplôme obtenu en 2025.'
+    }
+  };
+
+  function openFormationDetails(key) {
+    const item = formationDetails[key];
+    const modal = $('#formationModal');
+    if (!item || !modal) return;
+    $('#formationModalTitle').textContent = item.title;
+    $('#formationModalBadge').textContent = item.badge;
+    $('#formationModalIntro').textContent = item.intro;
+    $('#formationModalPoints').innerHTML = item.points.map(point => `<li>${point}</li>`).join('');
+    $('#formationModalTools').innerHTML = item.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('');
+    $('#formationModalFooter').textContent = item.footer;
+    openModal(modal);
+  }
+  window.openFormationDetails = openFormationDetails;
+
+  // ------------------------------------------------------------
+  // PROJECTS
+  // ------------------------------------------------------------
+  const projectMap = {
+    'ryokoo-content': 'projectRyokooContentModal',
+    'ryokoo-site': 'projectRyokooSiteModal',
+    'food-dispenser': 'distribModal',
+    'site-vitrine': 'siteModal',
+    'admin-network': 'u5Modal'
+  };
+
+  // ------------------------------------------------------------
+  // LEGACY / INLINE MODAL FUNCTIONS
+  // ------------------------------------------------------------
+  window.openU5Modal = (event) => { event?.preventDefault(); openModal($('#u5Modal')); };
+  window.closeU5Modal = () => closeModal($('#u5Modal'));
+  window.openTPModal = (tpId) => { closeModal($('#u5Modal')); openModal($(`#${tpId}Modal`)); };
+  window.closeTPModal = (tpId) => { closeModal($(`#${tpId}Modal`)); openModal($('#u5Modal')); };
+  window.openDistribModal = (event) => { event?.preventDefault(); openModal($('#distribModal')); };
+  window.closeDistribModal = () => closeModal($('#distribModal'));
+  window.openSiteModal = (event) => { event?.preventDefault(); openModal($('#siteModal')); };
+  window.closeSiteModal = () => closeModal($('#siteModal'));
+
+  // ------------------------------------------------------------
+  // CONTACT FORM
+  // ------------------------------------------------------------
+  function initContact() {
+    const form = $('#contactForm');
+    form?.addEventListener('submit', (event) => {
       event.preventDefault();
       const data = new FormData(form);
-      const name = String(data.get('name') || '').trim();
-      const email = String(data.get('email') || '').trim();
-      const subject = String(data.get('subject') || 'Prise de contact').trim();
-      const message = String(data.get('message') || '').trim();
-      const body = `Bonjour Romain,\n\n${message}\n\nNom : ${name}\nEmail : ${email}`;
-      window.location.href = `mailto:joeckleromain598@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const subject = encodeURIComponent(String(data.get('subject') || 'Prise de contact'));
+      const bodyText = `Bonjour Romain,\n\nNom : ${data.get('name') || ''}\nEmail : ${data.get('email') || ''}\n\n${data.get('message') || ''}`;
+      window.location.href = `mailto:joeckleromain598@gmail.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
     });
   }
+
+  // ------------------------------------------------------------
+  // GLOBAL EVENT DELEGATION
+  // ------------------------------------------------------------
+  function initInteractions() {
+    document.addEventListener('click', (event) => {
+      const closeButton = event.target.closest('.close-modal, [data-close-project]');
+      if (closeButton) {
+        const targetId = closeButton.dataset.closeProject || closeButton.closest('.modal')?.id;
+        const targetModal = targetId ? document.getElementById(targetId) : closeButton.closest('.modal');
+        closeModal(targetModal);
+        return;
+      }
+
+      if (event.target.closest('#profileDetailTrigger')) {
+        event.preventDefault();
+        openProfileDetails();
+        return;
+      }
+
+      const skillCard = event.target.closest('.skill-card-button');
+      if (skillCard) {
+        event.preventDefault();
+        openSkillDetails(skillCard.dataset.skill);
+        return;
+      }
+
+      const experienceCard = event.target.closest('.experience-detail-card');
+      if (experienceCard && !event.target.closest('a,button,input,select,textarea')) {
+        event.preventDefault();
+        openExperienceDetails(experienceCard.dataset.experience);
+        return;
+      }
+
+      const projectCard = event.target.closest('.project-card-button');
+      if (projectCard && !event.target.closest('a,button,input,select,textarea')) {
+        event.preventDefault();
+        openModal($(`#${projectMap[projectCard.dataset.project]}`));
+        return;
+      }
+
+      const formationCard = event.target.closest('.formation-detail-card');
+      if (formationCard && !event.target.closest('a,button,input,select,textarea')) {
+        event.preventDefault();
+        openFormationDetails(formationCard.dataset.formation);
+        return;
+      }
+
+      const closeBtn = event.target.closest('[data-close-project]');
+      if (closeBtn) {
+        closeModal($(`#${closeBtn.dataset.closeProject}`));
+        return;
+      }
+
+      const clickedModal = event.target.closest('.modal');
+      if (clickedModal && event.target === clickedModal) closeModal(clickedModal);
+
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeCard = event.target.closest?.('.skill-card-button, .experience-detail-card, .project-card-button, .formation-detail-card');
+      if (activeCard && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        if (activeCard.classList.contains('skill-card-button')) openSkillDetails(activeCard.dataset.skill);
+        else if (activeCard.classList.contains('experience-detail-card')) openExperienceDetails(activeCard.dataset.experience);
+        else if (activeCard.classList.contains('formation-detail-card')) openFormationDetails(activeCard.dataset.formation);
+        else openModal($(`#${projectMap[activeCard.dataset.project]}`));
+      }
+      if (event.key === 'Escape') {
+        $$('.modal').forEach(modal => {
+          if (getComputedStyle(modal).display !== 'none') closeModal(modal);
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initIntro();
+    initReveal();
+    initNavigation();
+    initContact();
+    initInteractions();
+    addCursorEffect();
+  }, { once: true });
 })();
-
-
-/* V5 — clavier, resize et fermeture propre */
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape') return;
-
-  const nav = document.querySelector('nav');
-  const toggle = document.getElementById('navToggle');
-  if (nav && nav.classList.contains('menu-open')) {
-    nav.classList.remove('menu-open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }
-  }
-
-  document.querySelectorAll('.modal').forEach(modal => {
-    if (getComputedStyle(modal).display !== 'none') {
-      modal.style.display = 'none';
-    }
-  });
-  document.body.style.overflow = '';
-});
-
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 1100) {
-    const nav = document.querySelector('nav');
-    const toggle = document.getElementById('navToggle');
-    if (nav) nav.classList.remove('menu-open');
-    if (toggle) {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }
-  }
-});
-
-/* ═══════════════════════════════════════════════════════════════════
-   V8 — LONG INTRO / 3D-STYLE DRAGON / HERO POLISH
-   ═══════════════════════════════════════════════════════════════════ */
-(function(){
-  const loader = document.getElementById('introLoader');
-  const bar = document.getElementById('loaderProgressBar');
-  const percent = document.getElementById('loaderPercent');
-  const status = document.getElementById('loaderStatus');
-  const skip = document.getElementById('loaderSkip');
-  if (!loader) return;
-
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  const duration = reduced ? 250 : 1700;
-  const startedAt = performance.now();
-  let finished = false;
-
-  const phases = [
-    [0, 'BOOTING VISUAL CORE'],
-    [18, 'MAPPING DRAGON GEOMETRY'],
-    [38, 'CALIBRATING 3D PERSPECTIVE'],
-    [58, 'SYNCHRONIZING NETWORK LAYERS'],
-    [78, 'LOADING R//JOECKLE PROFILE'],
-    [93, 'SECURE CHANNEL ESTABLISHED'],
-    [100, 'SYSTEM READY']
-  ];
-
-  function update(now){
-    if (finished) return;
-    const elapsed = now - startedAt;
-    const raw = Math.min(elapsed / duration, 1);
-    // smooth, slower first half then accelerate into the finish
-    const eased = raw < 0.78 ? raw * 0.88 / 0.78 : 0.88 + (raw - 0.78) * 0.12 / 0.22;
-    const value = Math.round(Math.min(eased,1) * 100);
-    if (bar) bar.style.width = value + '%';
-    if (percent) percent.textContent = String(value).padStart(2,'0') + '%';
-    let phaseText = phases[0][1];
-    for (const [threshold, text] of phases) if (value >= threshold) phaseText = text;
-    if (status) status.textContent = phaseText;
-    if (raw < 1) requestAnimationFrame(update);
-    else finish(false);
-  }
-
-  function finish(skipped){
-    if (finished) return;
-    finished = true;
-    if (bar) bar.style.width = '100%';
-    if (percent) percent.textContent = '100%';
-    if (status) status.textContent = skipped ? 'SKIPPED · SYSTEM READY' : 'SYSTEM READY';
-    document.body.classList.add('intro-complete');
-    setTimeout(() => loader.classList.add('is-done'), skipped ? 20 : 0);
-  }
-
-  if (skip) skip.addEventListener('click', () => finish(true));
-  requestAnimationFrame(update);
-
-  // Safety net if the tab throttles animation frames.
-  window.setTimeout(() => finish(false), duration + 500);
-
-  // Subtle mouse-controlled camera motion: the dragon feels spatial without needing a 3D model.
-  if (!reduced && window.matchMedia?.('(pointer:fine)').matches) {
-    const visual = loader.querySelector('.loader-visual');
-    if (visual) {
-      window.addEventListener('pointermove', (event) => {
-        if (finished) return;
-        const x = (event.clientX / window.innerWidth - 0.5) * 2;
-        const y = (event.clientY / window.innerHeight - 0.5) * 2;
-        visual.style.setProperty('--mx', `${x.toFixed(3)}`);
-        visual.style.setProperty('--my', `${y.toFixed(3)}`);
-      }, {passive:true});
-    }
-  }
-})();
-
-/* Prevent accidental horizontal overflow from dynamic components. */
-window.addEventListener('load', () => {
-  document.documentElement.style.overflowX = 'hidden';
-});
-
-/* ═══════════════════════════════════════════════════════════════════
-   V21 — LIGHTWEIGHT KALI FLIGHT
-   Uses CSS 3D layers instead of WebGL. This keeps the wing beat visible
-   while removing the continuous GPU render loop that caused stutter.
-   ═══════════════════════════════════════════════════════════════════ */
-(function initLightKaliFlight(){
-  const loader = document.getElementById('introLoader');
-  const visual = document.getElementById('dragon3dScene');
-  if (!loader || !visual) return;
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) return;
-
-  visual.classList.add('light-flight');
-
-  const skip = document.getElementById('loaderSkip');
-  const finish = () => {
-    loader.classList.add('is-done');
-    document.body.classList.add('intro-finished');
-  };
-  const introTimer = window.setTimeout(finish, 2050);
-  if (skip) skip.addEventListener('click', () => { window.clearTimeout(introTimer); finish(); }, {once:true});
-})();
-
-window.addEventListener('load',()=>{ document.documentElement.style.overflowX='hidden'; });
